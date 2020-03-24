@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "630905232082",
+    "firebase_url": "https://flutterauth-2fbdd.firebaseio.com",
+    "project_id": "flutterauth-2fbdd",
+    "storage_bucket": "flutterauth-2fbdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630905232082:android:838ff1ccf66d589f2c6b0b",
+        "android_client_info": {
+          "package_name": "com.catho.mobileproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630905232082-hkd7qrmm8n1bjajs9dl931lmjp5ffr1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh0a7qcoeHdDRqUEoX7oj3qg6kuHQ8cqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630905232082-hkd7qrmm8n1bjajs9dl931lmjp5ffr1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
