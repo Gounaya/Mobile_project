@@ -12,6 +12,7 @@ class _AuthenticateState extends State<Authenticate> {
 
   bool showSignIn = true;
   void toggleView(){
+    print("===> ShowSignIn = "+showSignIn.toString());
     setState(()
        => showSignIn = !showSignIn
     );
@@ -20,11 +21,9 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     if(showSignIn){
-      print("===> ShowSignIn = "+showSignIn.toString());
       return SignIn(toggleView: toggleView);
     }
     else{
-      print("===> ShowSignIn = "+showSignIn.toString());
       return Register(toggleView: toggleView);
     }
 
