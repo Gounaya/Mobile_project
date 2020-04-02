@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/constants.dart';
+import 'package:mobileproject/shared/loading.dart';
 
 
 class Register extends StatefulWidget {
@@ -15,21 +16,22 @@ class _RegisterState extends State<Register> {
 
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
-  String error = '';
-
-
+  bool loading = false;
 
   //text field state
   String email = '';
   String password = '';
+  String error = '';
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading? Loading() : Scaffold(
         backgroundColor: Colors.grey[200],
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: Text("Sign up"),
+          backgroundColor: Colors.grey[300],
+          title: Text("Sign up", style: TextStyle(color: Colors.black)),
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
@@ -49,7 +51,7 @@ class _RegisterState extends State<Register> {
               children: <Widget>[
                 SizedBox(height: 20.0),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                  decoration: textInputDecoration.copyWith(hintText: 'Email adrdress', icon: Icon(Icons.email)),
                   validator: (val) => val.isEmpty ? 'Enter an email' : null,
                   onChanged: (val){
                     setState(() =>
@@ -60,7 +62,7 @@ class _RegisterState extends State<Register> {
 
                 SizedBox(height: 20.0),
                 TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                  decoration: textInputDecoration.copyWith(hintText: 'Password minimum 8 characters', icon: Icon(Icons.lock)),
                   obscureText: true,
                   validator: (val) => val.length <8 ? 'Enter a password 8+ chars long' : null,
                   onChanged: (val){
@@ -69,32 +71,49 @@ class _RegisterState extends State<Register> {
                     );
                   },
                 ),
+
                 SizedBox(height: 20.0),
-                RaisedButton(
-                  color: Colors.blue,
-                  child: Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    print(email + " -- "+ password);
-                    if(_formKey.currentState.validate()){
-                      dynamic result = await _authService.registerWithEmailAndPassword(email, password);
-                      if(result == null) {
-                        setState(() {
-                          error = 'Please supply a valid email';
-                        });
-                      }else{
-                        print("===>result from OnPress Register button = "+result.toString());
+
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 25.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(15.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    color: Colors.blue,
+                    child: Text(
+                      'REGISTER',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'OpenSans',
+
+                      ),
+                    ),
+                    onPressed: () async {
+                      print(email + " -- "+ password);
+                      if(_formKey.currentState.validate()){
+                        setState(() => loading = true );
+                        dynamic result = await _authService.registerWithEmailAndPassword(email, password);
+                        if(result == null) {
+                          setState(() {
+                            error = 'Please supply a valid email';
+                            loading = false;
+                          });
+                        }
                       }
-                    }
-                  },
+                    },
+                  ),
                 ),
                 SizedBox(height: 12.0),
                 Text(
                   error,
                   style: TextStyle(color: Colors.red, fontSize: 14.0),
-                )
+                ),
+
               ],
             ),
           ),

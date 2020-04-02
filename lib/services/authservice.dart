@@ -32,7 +32,7 @@ class AuthService{
   // Sign in with email and password
   Future signInWithEmailAndPassword(email, password) async{
     try{
-      AuthResult result = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
+      AuthResult result = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
       FirebaseUser user = result.user;
       print("===> User IN registerWithEmailAndPassword "+user.toString() + "result = "+result.toString());
       return _userFromFirebaseUser(user);
@@ -45,7 +45,7 @@ class AuthService{
   // Register with email & password
   Future registerWithEmailAndPassword(email, password) async{
     try{
-      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
+      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
       FirebaseUser user = result.user;
       print("===> User IN registerWithEmailAndPassword "+user.toString() + "result = "+result.toString());
       return _userFromFirebaseUser(user);
@@ -66,3 +66,21 @@ class AuthService{
   }
 
 }
+
+/*
+  //Current user
+  Future<FirebaseUser> getCurrentUser() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user;
+  }
+
+  Future<void> sendEmailVerification() async {
+    FirebaseUser user = await _auth.currentUser();
+    user.sendEmailVerification();
+  }
+
+  Future<bool> isEmailVerified() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user.isEmailVerified;
+  }
+  */
