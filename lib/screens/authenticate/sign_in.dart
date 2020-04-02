@@ -57,7 +57,7 @@ class _SignInState extends State<SignIn> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               showLogo(),
-              SizedBox(height: 20.0),
+              SizedBox(height: 50.0),
 
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Email adrdress', icon: Icon(Icons.email)),
