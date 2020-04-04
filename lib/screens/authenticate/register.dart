@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileproject/screens/authenticate/sign_in.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/constants.dart';
 import 'package:mobileproject/shared/loading.dart';
@@ -32,6 +33,7 @@ class _RegisterState extends State<Register> {
         appBar: AppBar(
           backgroundColor: Colors.grey[300],
           title: Text("Sign up", style: TextStyle(color: Colors.black)),
+          automaticallyImplyLeading: false, // Used for removing back buttoon.
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
@@ -108,6 +110,9 @@ class _RegisterState extends State<Register> {
                     },
                   ),
                 ),
+
+                _haveAnaccount(context),
+
                 SizedBox(height: 12.0),
                 Text(
                   error,
@@ -121,4 +126,36 @@ class _RegisterState extends State<Register> {
 
     );
   }
+}
+
+Widget _haveAnaccount(context) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 20),
+    alignment: Alignment.bottomCenter,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Have an Account ?',
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignIn()));
+          },
+          child: Text(
+            'Sign In.',
+            style: TextStyle(
+                color: Color(0xfff79c4f),
+                fontSize: 13,
+                fontWeight: FontWeight.w600),
+          ),
+        )
+      ],
+    ),
+  );
 }

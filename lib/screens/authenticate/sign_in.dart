@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.grey[300],
         title: Text("Sign In", style: TextStyle(color: Colors.black)),
-
+        automaticallyImplyLeading: false, // Used for removing back buttoon.
         elevation: 0.0,
         actions: <Widget>[
           FlatButton.icon(
@@ -49,90 +49,92 @@ class _SignInState extends State<SignIn> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: Form(
-          key: _formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+          child: Form(
+            key: _formKey,
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              showLogo(),
-              SizedBox(height: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                showLogo(),
+                SizedBox(height: 20.0),
 
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'Email adrdress', icon: Icon(Icons.email)),
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                onChanged: (val){
-                  setState(() =>
-                    email = val
-                  );
-                },
-              ),
-
-              SizedBox(height: 20.0),
-              TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'Password', icon: Icon(Icons.lock)),
-                validator: (val) => val.length <8 ? 'Enter a password 8+ chars long' : null,
-                obscureText: true,
-                onChanged: (val){
-                  setState(() =>
-                    password = val
-                  );
-                },
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 25.0),
-                width: double.infinity,
-                child: RaisedButton(
-                    padding: EdgeInsets.all(15.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    color: Colors.blue,
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'OpenSans',
-
-                      ),
-                      /*
-                      style: TextStyle(
-                        color: Colors.white,
-                        letterSpacing: 1.5,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'OpenSans',
-                      ),
-                     */
-                    ),
-                    onPressed: () async{
-                      print(email + " -- "+ password);
-                      if(_formKey.currentState.validate()){
-                        setState(() => loading = true);
-                        dynamic result = await _authService.signInWithEmailAndPassword(email, password);
-                        if(result == null) {
-                          setState((){
-                            error = 'Could not sign in with those credentials';
-                            loading = false;
-                          });
-                        }
-                      }
-                    },
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Email adrdress', icon: Icon(Icons.email)),
+                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  onChanged: (val){
+                    setState(() =>
+                      email = val
+                    );
+                  },
                 ),
-              ),
-              _createAccountLabel(context),
 
-              SizedBox(height: 12.0),
-              Text(
-                error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Password', icon: Icon(Icons.lock)),
+                  validator: (val) => val.length <8 ? 'Enter a password 8+ chars long' : null,
+                  obscureText: true,
+                  onChanged: (val){
+                    setState(() =>
+                      password = val
+                    );
+                  },
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 25.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                      padding: EdgeInsets.all(15.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      color: Colors.blue,
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'OpenSans',
 
-              ),
-            ],
+                        ),
+                        /*
+                        style: TextStyle(
+                          color: Colors.white,
+                          letterSpacing: 1.5,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'OpenSans',
+                        ),
+                       */
+                      ),
+                      onPressed: () async{
+                        print(email + " -- "+ password);
+                        if(_formKey.currentState.validate()){
+                          setState(() => loading = true);
+                          dynamic result = await _authService.signInWithEmailAndPassword(email, password);
+                          if(result == null) {
+                            setState((){
+                              error = 'Could not sign in with those credentials';
+                              loading = false;
+                            });
+                          }
+                        }
+                      },
+                  ),
+                ),
+                _createAccountLabel(context),
+
+                SizedBox(height: 12.0),
+                Text(
+                  error,
+                  style: TextStyle(color: Colors.red, fontSize: 14.0),
+
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -200,54 +202,6 @@ Widget _createAccountLabel(context) {
   );
 }
 
-
-Widget _buildSignInWithText() {
-  return Column(
-    children: <Widget>[
-      Text(
-        '- OR -',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      SizedBox(height: 20.0),
-      Text(
-        'Sign in with',
-      ),
-    ],
-  );
-}
-
-
-
-Widget _buildSignupBtn() {
-  return GestureDetector(
-    onTap: () => print('Sign Up Button Pressed'),
-    child: RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: 'Don\'t have an Account? ',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: 'Sign Up',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
 
 
 /*
