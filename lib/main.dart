@@ -1,10 +1,15 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileproject/screens/wrapper.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:provider/provider.dart';
 import 'data/models/user.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+    DevicePreview(
+        builder: (context) =>MyApp()
+    )
+);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -13,6 +18,9 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
+        locale: DevicePreview.of(context).locale, // <--- Add the locale
+        builder: DevicePreview.appBuilder, // <--- Add the builder
+
         home: Wrapper(),
       ),
     );
