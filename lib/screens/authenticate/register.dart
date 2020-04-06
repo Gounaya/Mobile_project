@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
                   validator: (val) => val.isEmpty ? 'Enter an email' : null,
                   onChanged: (val){
                     setState(() =>
-                      email = val
+                    email = val
                     );
                   },
                 ),
@@ -69,7 +69,7 @@ class _RegisterState extends State<Register> {
                   validator: (val) => val.length <8 ? 'Enter a password 8+ chars long' : null,
                   onChanged: (val){
                     setState(() =>
-                      password = val
+                    password = val
                     );
                   },
                 ),
