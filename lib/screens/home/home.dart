@@ -15,8 +15,14 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     ListEvents(),
-    CreateEvent(), //
+    CreateEvent(),
     ProfilPage()
+  ];
+
+  final List<String> _title = [
+    "Home",
+    "New Event",
+    "Profil"
   ];
 
   final AuthService _auth = AuthService();
@@ -34,7 +40,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           backgroundColor: Colors.grey[200],
-          title: Text('Event Date', style: TextStyle(color: Colors.black)),
+          title: Text(_title[_currentIndex], style: TextStyle(color: Colors.black)),
           elevation: 0.0, //we dont have drop shadow
           actions: <Widget>[
             FlatButton.icon(

@@ -6,13 +6,13 @@ class Event {
   final String address;
   final String dateType;
   final String personWith;
+  final String description;
 
-  Event(this.title, this.date, this.address, this.dateType, this.personWith);
+  Event(this.title, this.date, this.address, this.dateType, this.personWith, this.description);
 
   @override
   String toString() {
-    return 'Event{title: $title, date: $date, place: $address, dateType: $dateType, personWith: $personWith}';
+    return 'Event{title: $title, date: $date, address: $address, dateType: $dateType, personWith: $personWith, Description: $description}';
   }
-
 
 }

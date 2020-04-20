@@ -6,10 +6,10 @@ import 'package:intl/intl.dart';
 class ListEvents extends StatelessWidget {
 
   final List<Event> eventsList = [
-    Event("date Lille", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Drink", "max"),
-    Event("restaurant labo", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max"),
-    Event("TacosLille", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max"),
-    Event("Gare Flandre Rest", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max"),
+    Event("date Lille", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Drink", "max",""),
+    Event("restaurant labo", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max",""),
+    Event("TacosLille", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max",""),
+    Event("Gare Flandre Rest", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max",""),
   ];
 
   @override
