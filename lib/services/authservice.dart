@@ -49,6 +49,8 @@ class AuthService{
           email: email.trim(),
           password: password.trim()
       );
+      //Update the username
+      
 
       FirebaseUser user = result.user;
       print("===> User IN registerWithEmailAndPassword "+user.toString() + "result = "+result.toString());

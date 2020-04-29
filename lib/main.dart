@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:mobileproject/screens/authenticate/register.dart';
 import 'package:mobileproject/screens/firstview/first_view.dart';
 import 'package:mobileproject/screens/home/home.dart';
 import 'package:mobileproject/screens/wrapper.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         //home: Home(),
         home: FirstView(),
         routes: <String, WidgetBuilder> {
-          '/signUp': (BuildContext context) => Home(),
+          '/signUp': (BuildContext context) => Register(),
           '/home': (BuildContext context) => Home(),
         },
       ),
