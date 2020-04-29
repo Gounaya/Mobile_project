@@ -3,6 +3,8 @@ import 'package:mobileproject/services/authservice.dart';
 import '../event/create_event.dart';
 import '../event/list_events.dart';
 import '../profil/profil_page.dart';
+import 'package:mobileproject/data/models/event.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -11,13 +13,17 @@ class Home extends StatefulWidget {
   }
 }
 class _HomeState extends State<Home> {
+  final newEvent = new Event(null, null, null, null, null, null, null, null, null, null);
 
   int _currentIndex = 0;
   final List<Widget> _children = [
     ListEvents(),
-    CreateEvent(),
+    CreateEvent(functionEvent:(newEvent){
+      print("===>"+newEvent.title);
+    },),
     ProfilPage()
   ];
+
 
   final List<String> _title = [
     "Home",
@@ -36,6 +42,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(

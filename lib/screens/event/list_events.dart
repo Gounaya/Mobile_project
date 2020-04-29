@@ -6,10 +6,16 @@ import 'package:intl/intl.dart';
 class ListEvents extends StatelessWidget {
 
   final List<Event> eventsList = [
-    Event("date Lille", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Drink", "max",""),
-    Event("restaurant labo", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max",""),
-    Event("TacosLille", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max",""),
-    Event("Gare Flandre Rest", DateTime.now(), "45 Boulevard Carnot, 59800 Lille", "Party", "max",""),
+  Event("date Lille", "Oussama Gounaya", "06 29 16 58 21", DateTime.now(), DateTime.now(),
+      "45 Boulevard Carnot, 59800 Lille", 20, 80, "Female", "description Test"),
+  Event("date Lille", "Oussama Gounaya", "06 29 16 58 21", DateTime.now(), DateTime.now(),
+      "45 Boulevard Carnot, 59800 Lille", 20, 80, "Female", "description Test"),
+  Event("date Lille", "Oussama Gounaya", "06 29 16 58 21", DateTime.now(), DateTime.now(),
+      "45 Boulevard Carnot, 59800 Lille", 20, 80, "Female", "description Test"),
+  Event("date Lille", "Oussama Gounaya", "06 29 16 58 21", DateTime.now(), DateTime.now(),
+      "45 Boulevard Carnot, 59800 Lille", 20, 80, "Female", "description Test"),
+  Event("date Lille", "Oussama Gounaya", "06 29 16 58 21", DateTime.now(), DateTime.now(),
+      "45 Boulevard Carnot, 59800 Lille", 20, 80, "Female", "description Test"),
   ];
 
   @override
@@ -41,7 +47,7 @@ class ListEvents extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0, bottom: 40.0),
                     child: Row(children: <Widget>[
-                      Text("${DateFormat('dd/MM/yyyy').format(event.date).toString()} | ${DateFormat('hh:mm').format(event.date).toString()}"),
+                      Text("${DateFormat('dd/MM/yyyy').format(event.dayDate).toString()} | ${DateFormat('hh:mm').format(event.dayDate).toString()}"),
                       Spacer(),
                     ]),
                   ),

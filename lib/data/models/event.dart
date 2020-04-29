@@ -1,18 +1,33 @@
 
 
 class Event {
-  final String title;
-  final DateTime date;
-  final String address;
-  final String dateType;
-  final String personWith;
-  final String description;
 
-  Event(this.title, this.date, this.address, this.dateType, this.personWith, this.description);
+   String title;
+   String createdBy;
+   String numero;
+   DateTime dayDate;
+   DateTime timeDate;
+   String address;
+   int minAge;
+   int maxAge;
+   String gender;
+   String description;
 
-  @override
-  String toString() {
-    return 'Event{title: $title, date: $date, address: $address, dateType: $dateType, personWith: $personWith, Description: $description}';
-  }
+   Event(this.title, this.createdBy, this.numero, this.dayDate, this.timeDate,
+       this.address, this.minAge, this.maxAge, this.gender, this.description);
+
+
+   Map<String, dynamic> toJson() => {
+      'title': title,
+      'createdBy': createdBy,
+      'numero': numero,
+      'dayDate': dayDate,
+      'timeDate': timeDate,
+      'address': address,
+      'minAge': minAge,
+      'maxAge': maxAge,
+      'gender': gender,
+      'description': description,
+   };
 
 }
