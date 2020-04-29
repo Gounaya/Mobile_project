@@ -35,15 +35,6 @@ class _RegisterState extends State<Register> {
           title: Text("Sign up", style: TextStyle(color: Colors.black)),
           automaticallyImplyLeading: false, // Used for removing back buttoon.
           elevation: 0.0,
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
-              onPressed: (){
-                widget.toggleView();
-              },
-            )
-          ],
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -98,7 +89,9 @@ class _RegisterState extends State<Register> {
                     onPressed: () async {
                       print(email + " -- "+ password);
                       if(_formKey.currentState.validate()){
-                        setState(() => loading = true );
+                        setState(() =>
+                          loading = true
+                        );
                         dynamic result = await _authService.registerWithEmailAndPassword(email, password);
                         if(result == null) {
                           setState(() {

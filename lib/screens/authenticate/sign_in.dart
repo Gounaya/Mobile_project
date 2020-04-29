@@ -38,15 +38,7 @@ class _SignInState extends State<SignIn> {
         title: Text("Sign In", style: TextStyle(color: Colors.black)),
         automaticallyImplyLeading: false, // Used for removing back buttoon.
         elevation: 0.0,
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Register'),
-            onPressed: (){
-              widget.toggleView();
-            },
-          )
-        ],
+
       ),
       body: Container(
         child: SingleChildScrollView(
