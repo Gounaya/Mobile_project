@@ -5,7 +5,7 @@ import 'package:mobileproject/shared/custom_dialog.dart';
 
 
 class FirstView extends StatelessWidget {
-  final primaryColor= const Color(0xFF75A2EA);
+  final primaryColor= Colors.blue;
   @override
   Widget build(BuildContext context) {
 
