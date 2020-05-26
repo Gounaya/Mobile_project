@@ -1,90 +1,80 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobileproject/data/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class AuthService{
+class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Create user obj based on firebaseuser
-  User _userFromFirebaseUser(FirebaseUser user){
-    return user != null ? User(uid: user.uid) : null;
-  }
-
-  // Auth change user Stream
-  Stream<User> get user{
-    return _auth.onAuthStateChanged
-      .map(_userFromFirebaseUser);
-  }
-
-
-  // Sign in anon
-  Future signInAnon() async {
-    try{
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
-    }catch(error){
-      print(error.toString());
-      return null;
-    }
-  }
-
-  // Sign in with email and password
-  Future signInWithEmailAndPassword(email, password) async{
-    try{
-      AuthResult result = await _auth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
-      FirebaseUser user = result.user;
-      print("===> User IN registerWithEmailAndPassword "+user.toString() + "result = "+result.toString());
-      return _userFromFirebaseUser(user);
-    }catch(error){
-      print(error.toString());
-      return null;
-    }
-  }
+  Stream<String> get onAuthStateChanged =>
+      _auth.onAuthStateChanged.map(
+            (FirebaseUser user) => user?.uid,
+      );
 
   // Register with email & password
-  Future registerWithEmailAndPassword(email, password) async{
-    try{
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
-          email: email.trim(),
-          password: password.trim()
-      );
-      FirebaseUser user = result.user;
-      print("===> User IN registerWithEmailAndPassword "+user.toString() + "result = "+result.toString());
-      return _userFromFirebaseUser(user);
-    }catch(error){
-      print(error.toString());
-      return null;
-    }
+  Future<String> registerWithEmailAndPassword(email, password, username) async {
+    final result = await _auth.createUserWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim()
+    );
+    await updateUser(username, result.user);
+    return result.user.uid;
+
   }
 
-  // Sign out
-  Future signOut() async {
-    try{
-      return await _auth.signOut();
-    }catch(e){
-      print(e.toString());
-      return null;
-    }
+  Future updateUser(String username, FirebaseUser currentUser) async {
+    var userUpdateInfo = UserUpdateInfo();
+    userUpdateInfo.displayName = username;
+    await currentUser.updateProfile(userUpdateInfo);
+    await currentUser.reload();
+  }
+
+  // SignIn with email & password
+  Future<String> SignInWithEmailAndPassword(email, password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //sign in the user here
+    prefs.setString("email", email);
+    prefs.setString("uid", password);
+
+    return (await _auth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim()
+    )).user.uid;
+  }
+
+  // Reset Password
+  Future sendPasswordResetEmail(String email) async {
+    return _auth.sendPasswordResetEmail(email: email);
+  }
+
+  // Get Current User UID
+  Future<String> getCurrentUID() async{
+    return (await _auth.currentUser()).uid;
+  }
+
+  // Get Current User
+  Future getCurrentUser() async{
+    return await _auth.currentUser();
+  }
+
+  //Sign Out
+  signOut(){
+    return _auth.signOut();
   }
 
 }
 
-/*
-  //Current user
-  Future<FirebaseUser> getCurrentUser() async {
-    FirebaseUser user = await _auth.currentUser();
-    return user;
+class NameValidator {
+  static String validate(String value){
+    if(value.isEmpty){
+      return "Name can't be empty";
+    }else if (value.length < 2){
+      return "Name must be at least 2 characaters long";
+    }else if (value.length > 20){
+      return "Name must be less than 20 characters long";
+    }else {
+      return null;
+    }
   }
-
-  Future<void> sendEmailVerification() async {
-    FirebaseUser user = await _auth.currentUser();
-    user.sendEmailVerification();
-  }
-
-  Future<bool> isEmailVerified() async {
-    FirebaseUser user = await _auth.currentUser();
-    return user.isEmailVerified;
-  }
-  */
+}

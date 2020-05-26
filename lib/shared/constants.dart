@@ -1,10 +1,12 @@
 
 import 'package:flutter/material.dart';
 
+
 const textInputDecoration = InputDecoration(
   hintText: 'Email',
-  fillColor: Colors.white,
   icon: Icon(Icons.email),
+
+
 /*
 
   filled: true,

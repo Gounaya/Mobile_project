@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobileproject/services/authservice.dart';
+import 'package:mobileproject/shared/provider_auth.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../event/create_event.dart';
 import '../event/list_events.dart';
-import '../profil/profil_page.dart';
+import '../profil/profil_view.dart';
 import 'package:mobileproject/data/models/event.dart';
 
 
@@ -12,8 +16,20 @@ class Home extends StatefulWidget {
     return _HomeState();
   }
 }
+
 class _HomeState extends State<Home> {
-  final newEvent = new Event(null, null, null, null, null, null, null, null, null, null);
+
+  bool themeSwitch = false;
+
+  dynamic themeColors(){
+    if(themeSwitch){
+      return Colors.grey[850];
+    } else {
+      return Colors.grey[200];
+    }
+  }
+
+  final newEvent = new Event(null, null, null, null, null, null, null, null, null, null, null);
 
   int _currentIndex = 0;
   final List<Widget> _children = [
@@ -21,7 +37,7 @@ class _HomeState extends State<Home> {
     CreateEvent(functionEvent:(newEvent){
       print("===>"+newEvent.title);
     },),
-    ProfilPage()
+    ProfilView()
   ];
 
 
@@ -43,24 +59,38 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
+    final themeChanger = Provider.of<ThemeChanger>(context);
+
     return Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: AppBar(
-          backgroundColor: Colors.grey[200],
-          title: Text(_title[_currentIndex], style: TextStyle(color: Colors.black)),
-          elevation: 0.0, //we dont have drop shadow
+      backgroundColor: themeChanger.theme.backgroundColor,
+
+      appBar: AppBar(
+          backgroundColor: themeChanger.theme.backgroundColor,
+          title: Text(_title[_currentIndex], style: TextStyle(color: Colors.blue)),
+          elevation: 0.0, //we dont
           actions: <Widget>[
-            FlatButton.icon(
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-                icon: Icon(Icons.person),
-                label: Text('Logout')
-            )
-          ],
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: IconButton(
+                  onPressed: () {
+                    themeChanger.switchTheme();
+                  },
+                  icon: themeChanger.theme.backgroundColor==Colors.black12
+                      ? Icon(
+                    Icons.brightness_3,
+                    color: themeChanger.theme.backgroundColor==Colors.black12 ? Colors.grey[200] : Colors.grey[850],
+                  )
+                      : Icon(
+                    Icons.wb_sunny,
+                    color: themeChanger.theme.backgroundColor==Colors.black12 ? Colors.grey[200] : Colors.grey[850],
+                  ),
+                ),
+            ),
+          ]
         ),
         body : _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Theme.of(context).accentColor,
           onTap: onTapTapped,
           currentIndex: _currentIndex,
           items: [

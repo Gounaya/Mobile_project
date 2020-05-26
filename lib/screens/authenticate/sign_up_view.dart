@@ -3,36 +3,39 @@ import 'package:mobileproject/screens/authenticate/sign_in.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/constants.dart';
 import 'package:mobileproject/shared/loading.dart';
+import 'package:mobileproject/shared/provider_auth.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
-/*
-class Register extends StatefulWidget {
-  final Function toggleView;
-  Register({this.toggleView});
+
+class SignUpView extends StatefulWidget {
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _SignUpViewState createState() => _SignUpViewState();
 }
 
-class _RegisterState extends State<Register> {
+class _SignUpViewState extends State<SignUpView> {
 
-  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
 
   //text field state
-  String email = '';
-  String password = '';
-  String error = '';
+  String email = '',
+         password = '',
+         username = '',
+         _error = '';
 
 
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
+
     return loading? Loading() : Scaffold(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: themeChanger.theme.backgroundColor,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          backgroundColor: Colors.grey[300],
-          title: Text("Sign up", style: TextStyle(color: Colors.black)),
+          backgroundColor: themeChanger.theme.backgroundColor,
+          title: Text("Sign up", style: TextStyle(color: themeChanger.theme.accentColor)),
           automaticallyImplyLeading: false, // Used for removing back buttoon.
           elevation: 0.0,
         ),
@@ -42,6 +45,19 @@ class _RegisterState extends State<Register> {
             key: _formKey,
             child: Column(
               children: <Widget>[
+
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Username', icon: Icon(Icons.person)),
+                  validator: NameValidator.validate,
+
+                  onChanged: (val){
+                    setState(() =>
+                    username = val
+                    );
+                  },
+                ),
+
                 SizedBox(height: 20.0),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Email adrdress', icon: Icon(Icons.email)),
@@ -92,11 +108,14 @@ class _RegisterState extends State<Register> {
                         setState(() =>
                           loading = true
                         );
-                        dynamic result = await _authService.registerWithEmailAndPassword(email, password);
-                        if(result == null) {
+                        try{
+                          final _auth = ProviderAuth.of(context).auth;
+                          String uid = await _auth.registerWithEmailAndPassword(email, password, username);
+                          print("Sign Up with ID : $uid");
+                          Navigator.of(context).pushReplacementNamed('/home');
+                        }catch(error){
                           setState(() {
-                            error = 'Please supply a valid email';
-                            loading = false;
+                            _error = error.message;
                           });
                         }
                       }
@@ -108,7 +127,7 @@ class _RegisterState extends State<Register> {
 
                 SizedBox(height: 12.0),
                 Text(
-                  error,
+                  _error,
                   style: TextStyle(color: Colors.red, fontSize: 14.0),
                 ),
 
@@ -122,6 +141,9 @@ class _RegisterState extends State<Register> {
 }
 
 Widget _haveAnaccount(context) {
+  final themeChanger = Provider.of<ThemeChanger>(context);
+
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 20),
     alignment: Alignment.bottomCenter,
@@ -130,15 +152,14 @@ Widget _haveAnaccount(context) {
       children: <Widget>[
         Text(
           'Have an Account ?',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: themeChanger.theme.accentColor),
         ),
         SizedBox(
           width: 10,
         ),
         InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignIn()));
+            Navigator.of(context).pushReplacementNamed('/signIn');
           },
           child: Text(
             'Sign In.',
@@ -152,4 +173,3 @@ Widget _haveAnaccount(context) {
     ),
   );
 }
-*/

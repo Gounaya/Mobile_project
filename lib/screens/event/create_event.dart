@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:mobileproject/data/models/event.dart';
 import 'package:mobileproject/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mobileproject/shared/provider_auth.dart';
+import 'package:mobileproject/services/credentials_google.dart';
 
 class CreateEvent extends StatefulWidget {
 
@@ -20,17 +22,21 @@ class _CreateEventState extends State<CreateEvent> {
   String title = '';
   String createdBy = '';
   String numero = '';
-  DateTime dayDate;
-  DateTime timeDate;
+  DateTime dayDate = DateTime.now();
+  DateTime timeDate = DateTime.now();
   int minAge = 18;
   int maxAge = 100;
+  String city= '';
   String address = '';
-  String gender = '';
+  String gender = 'Female';
   String description;
 
   bool autoValidate = true;
   bool readOnly = false;
   bool showSegmentedControl = true;
+
+  bool _isEnable = false;
+
 
   final db = Firestore.instance;
 
@@ -43,7 +49,9 @@ class _CreateEventState extends State<CreateEvent> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       body: Padding(
         padding: EdgeInsets.all(10),
         child: SingleChildScrollView(
@@ -128,6 +136,18 @@ class _CreateEventState extends State<CreateEvent> {
                     FormBuilderTextField(
                       attribute: 'text',
                       validators: [FormBuilderValidators.required()],
+                      decoration: textInputDecoration.copyWith(hintText: 'City', icon: Icon(Icons.location_city)),
+                      onChanged: (val){
+                        setState(() =>
+                          city = val
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10.0),
+
+                    FormBuilderTextField(
+                      attribute: 'text',
+                      validators: [FormBuilderValidators.required()],
                       decoration: textInputDecoration.copyWith(hintText: 'Address', icon: Icon(Icons.location_on)),
                       onChanged: (val){
                         setState(() =>
@@ -170,7 +190,7 @@ class _CreateEventState extends State<CreateEvent> {
                         child: Text("Age minimum  : "+minAge.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 70),
+                        padding: const EdgeInsets.only(left: 40),
                         child: Text("Age Maximum : "+maxAge.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
                       ),
                     ]),
@@ -208,6 +228,8 @@ class _CreateEventState extends State<CreateEvent> {
                         );
                       },
                     ),
+                    SizedBox(height: 10.0),
+
 
                     Padding(
                       padding: const EdgeInsets.only(left: 14, right: 14, bottom: 20, top: 20),
@@ -227,11 +249,12 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10.0, left:100, right: 100),
+                padding: EdgeInsets.only(top: 15.0, bottom: 25.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     MaterialButton(
-                      padding: EdgeInsets.all(15.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -247,19 +270,30 @@ class _CreateEventState extends State<CreateEvent> {
                         ),
                       ),
                       onPressed: () async{
-                        widget.event= Event(title,
-                            createdBy,
-                            numero,
-                            dayDate,
-                            timeDate,
-                            address,
-                            minAge,
-                            maxAge,
-                            gender,
-                            description
-                        );
-                        widget.functionEvent(widget.event);
-                        await db.collection("events").add(widget.event.toJson());
+                        if(_fbKey.currentState.validate()){
+                          widget.event= Event(title,
+                              createdBy,
+                              numero,
+                              dayDate,
+                              timeDate,
+                              city,
+                              address,
+                              minAge,
+                              maxAge,
+                              gender,
+                              description
+                          );
+                          widget.functionEvent(widget.event);
+
+                          //save event to firebase
+                          final uid = await ProviderAuth.of(context).auth.getCurrentUID();
+                          // To track events create by each user
+                          await db.collection("userEvents").document(uid).collection("events").add(widget.event.toJson());
+                          // To display all events
+                          await db.collection("events").add(widget.event.toJson());
+                          //Navigator.of(context).popUntil((route) => route.isFirst);
+                          Navigator.of(context).pushReplacementNamed('/home');
+                        }
                       },
                     ),
                     MaterialButton(

@@ -1,6 +1,12 @@
 class User {
-  final String uid;
+  String uid;
+  String photoProfil;
 
-  User({this.uid});
 
+  User(this.uid, this.photoProfil);
+
+  Map<String, dynamic> toJson() => {
+    'uid': uid,
+    'photoProfil': photoProfil,
+  };
 }
