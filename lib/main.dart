@@ -8,6 +8,7 @@ import 'package:mobileproject/screens/home/home.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/loading.dart';
 import 'package:mobileproject/shared/provider_auth.dart';
+import 'package:mobileproject/testCat/listing_pictures.dart';
 import 'package:mobileproject/theme/theme_changer.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
           //home: Wrapper(),
           //home: Home(),
         home: HomeController(),
+        //home: ListingPictures(),
+
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder> {
           '/listEvents': (BuildContext context) => ListEvents(),

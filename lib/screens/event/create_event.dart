@@ -6,7 +6,6 @@ import 'package:mobileproject/data/models/event.dart';
 import 'package:mobileproject/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobileproject/shared/provider_auth.dart';
-import 'package:mobileproject/services/credentials_google.dart';
 
 class CreateEvent extends StatefulWidget {
 
@@ -35,12 +34,10 @@ class _CreateEventState extends State<CreateEvent> {
   bool readOnly = false;
   bool showSegmentedControl = true;
 
-  bool _isEnable = false;
-
 
   final db = Firestore.instance;
 
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  static final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
 
   //final Event event;
 

@@ -19,16 +19,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  bool themeSwitch = false;
-
-  dynamic themeColors(){
-    if(themeSwitch){
-      return Colors.grey[850];
-    } else {
-      return Colors.grey[200];
-    }
-  }
-
   final newEvent = new Event(null, null, null, null, null, null, null, null, null, null, null);
 
   int _currentIndex = 0;
