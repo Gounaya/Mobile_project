@@ -36,6 +36,8 @@ dependencies:
   dynamic_theme: ^1.0.1
   flutter_bloc: ^4.0.0
   equatable: ^1.2.0
+  bloc: ^4.0.0
+
 
   path_provider: ^1.6.9
   dio: 3.0.9

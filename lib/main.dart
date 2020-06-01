@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobileproject/screens/authenticate/reset_password.dart';
 import 'package:mobileproject/screens/authenticate/sign_in.dart';
 import 'package:mobileproject/screens/authenticate/sign_up_view.dart';
@@ -14,6 +15,9 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_preview/device_preview.dart';
 import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobileproject/theme/bloc/theme_bloc.dart';
+import 'package:mobileproject/theme/bloc/theme_state.dart';
 
 /*
 void main() => runApp(
@@ -35,32 +39,42 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final themeChanger = Provider.of<ThemeChanger>(context);
-    return ProviderAuth(
-      auth: AuthService(),
-      child: MaterialApp(
-
-        //theme: themeChanger.theme,
-
-          //locale: DevicePreview.of(context).locale, // <--- Add the locale
-          //builder: DevicePreview.appBuilder, // <--- Add the builder
-
-          //home: Wrapper(),
-          //home: Home(),
-        home: HomeController(),
-        //home: ListingPictures(),
-
-        debugShowCheckedModeBanner: false,
-        routes: <String, WidgetBuilder> {
-          '/listEvents': (BuildContext context) => ListEvents(),
-          '/forgetPassword': (BuildContext context) => ResetPassword(),
-          '/signUp': (BuildContext context) => SignUpView(),
-          '/signIn': (BuildContext context) => SignIn(),
-          '/home': (BuildContext context) => HomeController(),
-        },
+    return BlocProvider(
+      create: (context) => ThemeBloc(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: _buildWithTheme,
       ),
     );
   }
 }
+
+Widget _buildWithTheme(BuildContext context, ThemeState state) {
+  return ProviderAuth(
+    auth: AuthService(),
+    child: MaterialApp(
+
+      theme: state.themeData,
+
+      //locale: DevicePreview.of(context).locale, // <--- Add the locale
+      //builder: DevicePreview.appBuilder, // <--- Add the builder
+
+      //home: Wrapper(),
+      //home: Home(),
+      home: HomeController(),
+      //home: ListingPictures(),
+
+      debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder> {
+        '/listEvents': (BuildContext context) => ListEvents(),
+        '/forgetPassword': (BuildContext context) => ResetPassword(),
+        '/signUp': (BuildContext context) => SignUpView(),
+        '/signIn': (BuildContext context) => SignIn(),
+        '/home': (BuildContext context) => HomeController(),
+      },
+    ),
+  );
+}
+
 
 class Bloc{
   final _themeController = StreamController<bool>();

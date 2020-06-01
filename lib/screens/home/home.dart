@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/provider_auth.dart';
+import 'package:mobileproject/theme/app_themes.dart';
 import 'package:mobileproject/theme/theme_changer.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +10,9 @@ import '../event/create_event.dart';
 import '../event/list_events.dart';
 import '../profil/profil_view.dart';
 import 'package:mobileproject/data/models/event.dart';
+import 'package:mobileproject/theme/bloc/theme_bloc.dart';
+import 'package:mobileproject/theme/bloc/theme_state.dart';
+import 'package:mobileproject/theme/bloc/theme_event.dart';
 
 
 class Home extends StatefulWidget {
@@ -52,32 +57,35 @@ class _HomeState extends State<Home> {
     //final themeChanger = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
-      //backgroundColor: themeChanger.theme.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
 
       appBar: AppBar(
-          //backgroundColor: themeChanger.theme.backgroundColor,
+          backgroundColor: Theme.of(context).backgroundColor,
           title: Text(_title[_currentIndex], style: TextStyle(color: Colors.blue)),
           elevation: 0.0, //we dont
-          /*
+
           actions: <Widget>[
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: IconButton(
                   onPressed: () {
-                    themeChanger.switchTheme();
+                    BlocProvider.of<ThemeBloc>(context).add(ThemeChanged(theme: AppTheme.Dark));
+                    //ThemeChanger();
+
+                    //themeChanger.switchTheme();
                   },
-                  icon: themeChanger.theme.backgroundColor==Colors.black12
+                  icon: Theme.of(context).backgroundColor==Colors.black12
                       ? Icon(
                     Icons.brightness_3,
-                    color: themeChanger.theme.backgroundColor==Colors.black12 ? Colors.grey[200] : Colors.grey[850],
+                    color: Theme.of(context).backgroundColor==Colors.black12 ? Colors.grey[200] : Colors.grey[850],
                   )
                       : Icon(
                     Icons.wb_sunny,
-                    color: themeChanger.theme.backgroundColor==Colors.black12 ? Colors.grey[200] : Colors.grey[850],
+                    color: Theme.of(context).backgroundColor==Colors.black12 ? Colors.grey[200] : Colors.grey[850],
                   ),
                 ),
             ),
-          ]*/
+          ]
         ),
         body : _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
