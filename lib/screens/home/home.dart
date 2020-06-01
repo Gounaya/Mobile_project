@@ -49,15 +49,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    final themeChanger = Provider.of<ThemeChanger>(context);
+    //final themeChanger = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
-      backgroundColor: themeChanger.theme.backgroundColor,
+      //backgroundColor: themeChanger.theme.backgroundColor,
 
       appBar: AppBar(
-          backgroundColor: themeChanger.theme.backgroundColor,
+          //backgroundColor: themeChanger.theme.backgroundColor,
           title: Text(_title[_currentIndex], style: TextStyle(color: Colors.blue)),
           elevation: 0.0, //we dont
+          /*
           actions: <Widget>[
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
@@ -76,7 +77,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
             ),
-          ]
+          ]*/
         ),
         body : _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(

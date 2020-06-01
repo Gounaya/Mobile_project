@@ -28,14 +28,14 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChanger = Provider.of<ThemeChanger>(context);
+    //final themeChanger = Provider.of<ThemeChanger>(context);
 
     return loading? Loading() : Scaffold(
-        backgroundColor: themeChanger.theme.backgroundColor,
+        //backgroundColor: themeChanger.theme.backgroundColor,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          backgroundColor: themeChanger.theme.backgroundColor,
-          title: Text("Sign up", style: TextStyle(color: themeChanger.theme.accentColor)),
+          //backgroundColor: themeChanger.theme.backgroundColor,
+          //title: Text("Sign up", style: TextStyle(color: themeChanger.theme.accentColor)),
           automaticallyImplyLeading: false, // Used for removing back buttoon.
           elevation: 0.0,
         ),
@@ -141,7 +141,7 @@ class _SignUpViewState extends State<SignUpView> {
 }
 
 Widget _haveAnaccount(context) {
-  final themeChanger = Provider.of<ThemeChanger>(context);
+  //final themeChanger = Provider.of<ThemeChanger>(context);
 
 
   return Container(
@@ -152,7 +152,7 @@ Widget _haveAnaccount(context) {
       children: <Widget>[
         Text(
           'Have an Account ?',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: themeChanger.theme.accentColor),
+          //style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: themeChanger.theme.accentColor),
         ),
         SizedBox(
           width: 10,

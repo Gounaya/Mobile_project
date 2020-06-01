@@ -32,14 +32,14 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChanger = Provider.of<ThemeChanger>(context);
+    //final themeChanger = Provider.of<ThemeChanger>(context);
 
     return loading? Loading() : Scaffold(
-      backgroundColor: themeChanger.theme.backgroundColor,//Colors.grey[200],
+      backgroundColor: Colors.grey[200],//themeChanger.theme.backgroundColor,//Colors.grey[200],
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        backgroundColor: themeChanger.theme.backgroundColor,
-        title: Text("Sign In", style: TextStyle(color: themeChanger.theme.accentColor)),
+        backgroundColor: Colors.grey[200],// themeChanger.theme.backgroundColor,
+        //title: Text("Sign In", style: TextStyle(color: themeChanger.theme.accentColor)),
         automaticallyImplyLeading: false, // Used for removing back buttoon.
         elevation: 0.0,
 
@@ -171,7 +171,7 @@ Widget _buildLoginBtn() {
 }
 
 Widget _createResetPasswordLabel(context) {
-  final themeChanger = Provider.of<ThemeChanger>(context);
+  //final themeChanger = Provider.of<ThemeChanger>(context);
 
   return Container(
     alignment: Alignment.bottomCenter,
@@ -185,7 +185,7 @@ Widget _createResetPasswordLabel(context) {
           child: Text(
             'Forgot Password?',
             style: TextStyle(
-                color: themeChanger.theme.accentColor,
+                //color: themeChanger.theme.accentColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
           ),
@@ -198,7 +198,7 @@ Widget _createResetPasswordLabel(context) {
 
 
 Widget _createAccountLabel(context) {
-  final themeChanger = Provider.of<ThemeChanger>(context);
+  //final themeChanger = Provider.of<ThemeChanger>(context);
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 20),
@@ -208,7 +208,7 @@ Widget _createAccountLabel(context) {
       children: <Widget>[
         Text(
           'Don\'t have an account ?',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: themeChanger.theme.primaryColor),
+          //style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: themeChanger.theme.primaryColor),
         ),
         SizedBox(
           width: 10,

@@ -49,9 +49,10 @@ class _CreateEventState extends State<CreateEvent> {
 
     return Scaffold(
 
-      body: Padding(
-        padding: EdgeInsets.all(10),
+      body: Container(
         child: SingleChildScrollView(
+          padding: EdgeInsets.all(10),
+
           child: Column(
             children: <Widget>[
 
@@ -70,7 +71,9 @@ class _CreateEventState extends State<CreateEvent> {
                       validators: [FormBuilderValidators.required()],
                       decoration: textInputDecoration.copyWith(hintText: 'Title', icon: Icon(Icons.title)),
                       onChanged: (val){
-                        setState(() =>
+                        print("FormBuilderTextField");
+
+                      setState(() =>
                         title = val
                         );
                       },

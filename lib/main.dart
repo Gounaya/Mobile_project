@@ -13,7 +13,9 @@ import 'package:mobileproject/theme/theme_changer.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_preview/device_preview.dart';
+import 'dart:async';
 
+/*
 void main() => runApp(
       ChangeNotifierProvider<ThemeChanger>(
         create: (_) => ThemeChanger(),
@@ -22,35 +24,25 @@ void main() => runApp(
         ),
       ),
 );
-//void main() => runApp(MyApp());
 
-final lightTheme = ThemeData.light().copyWith(
-  primaryColor: Colors.white,
-  accentColor: Colors.blue,
-  primaryIconTheme: IconThemeData(color: Colors.black),
-);
+ */
+void main() => runApp(MyApp());
 
-final darkTheme = ThemeData.dark().copyWith(
-  primaryColor: Colors.white,
-  accentColor: Colors.blue,
-  primaryIconTheme: IconThemeData(color: Colors.white),
-);
 
 class MyApp extends StatelessWidget {
-
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final themeChanger = Provider.of<ThemeChanger>(context);
+    //final themeChanger = Provider.of<ThemeChanger>(context);
     return ProviderAuth(
       auth: AuthService(),
       child: MaterialApp(
 
-        theme: themeChanger.theme,
+        //theme: themeChanger.theme,
 
-          locale: DevicePreview.of(context).locale, // <--- Add the locale
-          builder: DevicePreview.appBuilder, // <--- Add the builder
+          //locale: DevicePreview.of(context).locale, // <--- Add the locale
+          //builder: DevicePreview.appBuilder, // <--- Add the builder
 
           //home: Wrapper(),
           //home: Home(),
@@ -70,6 +62,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Bloc{
+  final _themeController = StreamController<bool>();
+  get changeTheme => _themeController.sink.add;
+  get darkThemeEnabled => _themeController.stream;
+}
+
+final bloc = Bloc();
 
 
 

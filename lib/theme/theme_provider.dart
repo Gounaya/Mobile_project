@@ -20,7 +20,18 @@ class ThemeProvider with ChangeNotifier {
     //for update the UI whenever it is called
     notifyListeners();
   }
+  final lightTheme = ThemeData.light().copyWith(
+    primaryColor: Colors.white,
+    accentColor: Colors.blue,
+    primaryIconTheme: IconThemeData(color: Colors.black),
+  );
 
+  final darkTheme = ThemeData.dark().copyWith(
+    primaryColor: Colors.white,
+    accentColor: Colors.blue,
+    primaryIconTheme: IconThemeData(color: Colors.white),
+  );
+/*
   final darkTheme = ThemeData(
     primarySwatch: Colors.grey,
     primaryColor: Colors.black,
@@ -40,5 +51,7 @@ class ThemeProvider with ChangeNotifier {
     accentIconTheme: IconThemeData(color: Colors.white),
     dividerColor: Colors.white54,
   );
+
+ */
 }
 

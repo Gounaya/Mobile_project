@@ -27,7 +27,8 @@ class ProfilView extends StatelessWidget {
                 return Loading();
               }
             },
-          )
+          ),
+
         ],
       ),
     );

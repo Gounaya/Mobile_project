@@ -10,14 +10,14 @@ class AvatarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeChanger = Provider.of<ThemeChanger>(context);
+    //final themeChanger = Provider.of<ThemeChanger>(context);
 
     return GestureDetector(
       onTap: onTap,
       child: Center(
         child: avatarUrl == null
             ? CircleAvatar(
-          backgroundColor: themeChanger.theme.accentColor,
+          //backgroundColor: themeChanger.theme.accentColor,
           radius: 50.0,
           child: Icon(Icons.photo_camera),
         )
