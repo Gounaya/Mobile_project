@@ -6,6 +6,8 @@ import 'package:mobileproject/screens/event/detailEventContent/city_address_widg
 import 'package:mobileproject/screens/event/detailEventContent/date_widget.dart';
 import 'package:mobileproject/screens/event/detailEventContent/description_widget.dart';
 import 'package:mobileproject/screens/event/detailEventContent/target_data_widget.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
 import 'detailEventContent/created_by_widget.dart';
 
@@ -17,6 +19,7 @@ class DetailEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
 
     final topContentText = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,14 +85,14 @@ class DetailEvent extends StatelessWidget {
           child: Column(
             children: <Widget>[
 
-              dateWidget(event),
-              cityAddressWidget(event),
+              dateWidget(event, context),
+              cityAddressWidget(event, context),
               Divider(
                 height: 50,
               ),
-              createdByWidget(event),
-              targetDataWidget(event),
-              descriptionWidget(event),
+              createdByWidget(event, context),
+              targetDataWidget(event, context),
+              descriptionWidget(event, context),
             ],
           ),
         ),
@@ -137,6 +140,7 @@ class DetailEvent extends StatelessWidget {
     );
 
     return Scaffold(
+      backgroundColor: themeChanger.theme.backgroundColor,
       body: Column(
         children: <Widget>[
           topContent,

@@ -9,7 +9,8 @@ import 'package:mobileproject/shared/provider_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobileproject/data/models/event.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
 class ListEvents extends StatelessWidget {
 
@@ -45,11 +46,15 @@ class ListEvents extends StatelessWidget {
   }
 
   Widget buildEventCard(BuildContext context, DocumentSnapshot document){
+    final themeChanger = Provider.of<ThemeChanger>(context);
+
     final event = Event.fromSnapshot(document);
     return new Container(
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8.0,),
           child: Card(
+            elevation: 10,
+            color: themeChanger.theme.cardColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
@@ -61,14 +66,15 @@ class ListEvents extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
                         child: Row(children: <Widget>[
-                          Text(event.title, style: GoogleFonts.raleway(fontSize: 30.0),), //
+                          Text(event.title, style: GoogleFonts.raleway(fontSize: 30.0, color: themeChanger.theme.primaryColor),),
                           Spacer(),
                         ]),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 4.0, bottom: 40.0),
                         child: Row(children: <Widget>[
-                          Text("${DateFormat('dd/MM/yyyy').format(event.dayDate).toString()} | ${DateFormat('hh:mm').format(event.timeDate).toString()}"),
+                          Text("${DateFormat('dd/MM/yyyy').format(event.dayDate).toString()} | ${DateFormat('hh:mm').format(event.timeDate).toString()}",
+                              style: new TextStyle(color: themeChanger.theme.primaryColor)),
                           Spacer(),
                         ]),
                       ),
@@ -79,12 +85,13 @@ class ListEvents extends StatelessWidget {
                             Icon(
                               Icons.location_on,
                               size: 18.0,
+                              color: themeChanger.theme.primaryColor
                             ),
                             Padding(padding: EdgeInsets.only(left: 8.0)),
 
-                            Text(event.address, style: new TextStyle(fontSize: 15.0),overflow: TextOverflow.fade),
+                            Text(event.address, style: new TextStyle(fontSize: 15.0,color: themeChanger.theme.primaryColor),overflow: TextOverflow.fade),
                             Spacer(),
-                            Icon(Icons.restaurant),
+                            Icon(Icons.restaurant, color: themeChanger.theme.primaryColor),
                           ],
                         ),
                       )

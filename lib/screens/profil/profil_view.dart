@@ -9,8 +9,11 @@ import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/loading.dart';
 import 'package:mobileproject/shared/provider_auth.dart';
 import 'package:mobileproject/data/models/user.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
 class ProfilView extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -35,6 +38,8 @@ class ProfilView extends StatelessWidget {
   }
 
   Widget displayTheUser(context, snapshot) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
+
     final user = snapshot.data;
 
     return Column(
@@ -60,7 +65,8 @@ class ProfilView extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Name :", style: GoogleFonts.raleway(fontSize: 20.0, fontWeight: FontWeight.bold,),)
+                  child: Text("Name :",
+                    style: GoogleFonts.raleway(fontSize: 20.0, fontWeight: FontWeight.bold, color: themeChanger.theme.primaryColor,),)
                 ),
               ],
             ),
@@ -68,27 +74,7 @@ class ProfilView extends StatelessWidget {
               children: <Widget>[
                 Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("${user.displayName}", style: GoogleFonts.raleway(fontSize: 20.0), )
-                ),
-              ],
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Email :", style: GoogleFonts.raleway(fontSize: 20.0, fontWeight: FontWeight.bold,),)
-                ),
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${user.email}", style: GoogleFonts.raleway(fontSize: 20.0),)
+                    child: Text("${user.displayName}", style: GoogleFonts.raleway(fontSize: 20.0, color: themeChanger.theme.primaryColor), )
                 ),
               ],
             ),
@@ -100,7 +86,7 @@ class ProfilView extends StatelessWidget {
               children: <Widget>[
                 Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("Creation date :", style: GoogleFonts.raleway(fontSize: 20.0, fontWeight: FontWeight.bold,),)
+                    child: Text("Email :", style: GoogleFonts.raleway(fontSize: 20.0, fontWeight: FontWeight.bold, color: themeChanger.theme.primaryColor),)
                 ),
               ],
             ),
@@ -108,7 +94,27 @@ class ProfilView extends StatelessWidget {
               children: <Widget>[
                 Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("${DateFormat('dd/MM/yyyy').format(user.metadata.creationTime)}", style: GoogleFonts.raleway(fontSize: 20.0),)
+                    child: Text("${user.email}", style: GoogleFonts.raleway(fontSize: 20.0, color: themeChanger.theme.primaryColor),)
+                ),
+              ],
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Creation date :", style: GoogleFonts.raleway(fontSize: 20.0, fontWeight: FontWeight.bold, color: themeChanger.theme.primaryColor),)
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("${DateFormat('dd/MM/yyyy').format(user.metadata.creationTime)}", style: GoogleFonts.raleway(fontSize: 20.0,color: themeChanger.theme.primaryColor),)
                 ),
               ],
             ),

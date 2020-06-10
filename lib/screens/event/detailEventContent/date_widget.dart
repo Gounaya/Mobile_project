@@ -3,10 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobileproject/data/models/event.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
 
-Widget dateWidget(Event event) {
+Widget dateWidget(Event event, BuildContext context) {
+  final themeChanger = Provider.of<ThemeChanger>(context);
+
   return Card(
+    color: themeChanger.theme.cardColor,
     child: Column(
       children: <Widget>[
         Row(
@@ -18,13 +23,13 @@ Widget dateWidget(Event event) {
                   Icon(
                     Icons.date_range,
                     size: 18.0,
-                    //color: Colors.black54,
+                    color: themeChanger.theme.primaryColor,
                   ),
                   Padding(padding: EdgeInsets.only(left: 10.0)),
                   Text(
                     "${DateFormat('dd/MM/yyyy').format(event.dayDate).toString()} - ${DateFormat('hh:mm').format(event.timeDate).toString()}",
                     style: TextStyle(
-                        //color: Colors.black54,
+                        color: themeChanger.theme.primaryColor,
                         //fontWeight: FontWeight.bold,
                         fontSize: 18.0),
                   ),

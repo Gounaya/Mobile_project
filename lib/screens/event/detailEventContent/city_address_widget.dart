@@ -3,10 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobileproject/data/models/event.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
+Widget cityAddressWidget(Event event, BuildContext context) {
+  final themeChanger = Provider.of<ThemeChanger>(context);
 
-Widget cityAddressWidget(Event event) {
   return Card(
+    color: themeChanger.theme.cardColor,
     child: Column(
       children: <Widget>[
         Row(
@@ -22,7 +26,7 @@ Widget cityAddressWidget(Event event) {
                     Icon(
                       Icons.location_on,
                       size: 18.0,
-                      //color: Colors.black54,
+                      color: themeChanger.theme.primaryColor,
                     ),
                     Expanded(
                       child: Padding(
@@ -30,7 +34,7 @@ Widget cityAddressWidget(Event event) {
                         child: Text(
                           event.address+", "+event.city,
                           style: TextStyle(
-                              //color: Colors.black45,
+                              color: themeChanger.theme.primaryColor,
                               //fontWeight: FontWeight.bold,
                               fontSize: 18.0
                           ),

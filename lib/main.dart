@@ -8,24 +8,22 @@ import 'package:mobileproject/screens/home/home.dart';
 import 'package:mobileproject/services/authservice.dart';
 import 'package:mobileproject/shared/loading.dart';
 import 'package:mobileproject/shared/provider_auth.dart';
-import 'package:mobileproject/testCat/listing_pictures.dart';
 import 'package:mobileproject/theme/theme_changer.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_preview/device_preview.dart';
 import 'dart:async';
-
 /*
 void main() => runApp(
       ChangeNotifierProvider<ThemeChanger>(
         create: (_) => ThemeChanger(),
-        child: DevicePreview(
+        DevicePreview(
             builder: (context) =>MyApp()
         ),
       ),
-);
+);*/
 
- */
+
 void main() => runApp(MyApp());
 
 
@@ -35,41 +33,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final themeChanger = Provider.of<ThemeChanger>(context);
-    return ProviderAuth(
-      auth: AuthService(),
-      child: MaterialApp(
+    return ChangeNotifierProvider<ThemeChanger>(
+      create: (_) => ThemeChanger(),
+      child: ProviderAuth(
+        auth: AuthService(),
+        child: MaterialApp(
 
-        //theme: themeChanger.theme,
+          //theme: ThemeChanger().theme,
 
-          //locale: DevicePreview.of(context).locale, // <--- Add the locale
-          //builder: DevicePreview.appBuilder, // <--- Add the builder
+            //locale: DevicePreview.of(context).locale, // <--- Add the locale
+            //builder: DevicePreview.appBuilder, // <--- Add the builder
 
-          //home: Wrapper(),
-          //home: Home(),
-        home: HomeController(),
-        //home: ListingPictures(),
+            //home: Wrapper(),
+            //home: Home(),
+          home: HomeController(),
+          //home: ListingPictures(),
 
-        debugShowCheckedModeBanner: false,
-        routes: <String, WidgetBuilder> {
-          '/listEvents': (BuildContext context) => ListEvents(),
-          '/forgetPassword': (BuildContext context) => ResetPassword(),
-          '/signUp': (BuildContext context) => SignUpView(),
-          '/signIn': (BuildContext context) => SignIn(),
-          '/home': (BuildContext context) => HomeController(),
-        },
+          debugShowCheckedModeBanner: false,
+          routes: <String, WidgetBuilder> {
+            '/listEvents': (BuildContext context) => ListEvents(),
+            '/forgetPassword': (BuildContext context) => ResetPassword(),
+            '/signUp': (BuildContext context) => SignUpView(),
+            '/signIn': (BuildContext context) => SignIn(),
+            '/home': (BuildContext context) => HomeController(),
+          },
+        ),
       ),
     );
   }
 }
-
-class Bloc{
-  final _themeController = StreamController<bool>();
-  get changeTheme => _themeController.sink.add;
-  get darkThemeEnabled => _themeController.stream;
-}
-
-final bloc = Bloc();
-
 
 
 // Controle If we show SignInPage or homePage

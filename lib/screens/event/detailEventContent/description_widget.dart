@@ -3,10 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobileproject/data/models/event.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
 
-Widget descriptionWidget(Event event) {
+Widget descriptionWidget(Event event, BuildContext context) {
+  final themeChanger = Provider.of<ThemeChanger>(context);
+
   return Card(
+    color: themeChanger.theme.cardColor,
 
       child: Column(
         children: <Widget>[
@@ -24,7 +29,7 @@ Widget descriptionWidget(Event event) {
                       Icon(
                         Icons.description,
                         size: 18.0,
-                        //color: Colors.black,
+                        color: themeChanger.theme.primaryColor,
                       ),
 
                       //Padding(padding: EdgeInsets.only(left: 10.0)),
@@ -36,7 +41,7 @@ Widget descriptionWidget(Event event) {
                               children: <Widget>[
                                 Text("Description : ",
                                   style: TextStyle(
-                                      //color: Colors.black,
+                                      color: themeChanger.theme.primaryColor,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18.0
                                   ),
@@ -48,7 +53,7 @@ Widget descriptionWidget(Event event) {
                                   softWrap: true,
                                   maxLines: 6,
                                   style: TextStyle(
-                                      //color: Colors.black,
+                                      color: themeChanger.theme.primaryColor,
                                       //fontWeight: FontWeight.bold,
                                       fontSize: 18.0
                                   ),

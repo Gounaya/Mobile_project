@@ -15,9 +15,11 @@ class ThemeChanger with ChangeNotifier {
     primaryIconTheme: IconThemeData(color: Colors.black),
 
     brightness: Brightness.light,
+    canvasColor: Colors.grey[200],
     backgroundColor: Colors.grey[200],
     accentIconTheme: IconThemeData(color: Colors.white),
     dividerColor: Colors.white54,
+    indicatorColor: Colors.grey[600],
   );
 
   final _darkTheme = ThemeData.dark().copyWith(
@@ -26,9 +28,12 @@ class ThemeChanger with ChangeNotifier {
     primaryIconTheme: IconThemeData(color: Colors.white),
 
     brightness: Brightness.dark,
-    backgroundColor: Colors.black12,
+    canvasColor: Colors.grey[850],
+    backgroundColor: Colors.black, //Colors.black12,
     accentIconTheme: IconThemeData(color: Colors.black),
     dividerColor: Colors.black54,
+    indicatorColor: Colors.white,
+
   );
 
   ThemeChanger() {

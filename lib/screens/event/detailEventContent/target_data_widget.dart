@@ -3,10 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobileproject/data/models/event.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
 
 
-Widget targetDataWidget(Event event) {
+Widget targetDataWidget(Event event, BuildContext context) {
+  final themeChanger = Provider.of<ThemeChanger>(context);
+
   return Card(
+    color: themeChanger.theme.cardColor,
+
     child: Column(
       children: <Widget>[
         Row(
@@ -20,7 +26,7 @@ Widget targetDataWidget(Event event) {
                         Icon(
                           Icons.person,
                           size: 18.0,
-                          //color: Colors.black,
+                          color: themeChanger.theme.primaryColor,
                         ),
                       ]
                   ),
@@ -30,14 +36,14 @@ Widget targetDataWidget(Event event) {
                       children: <Widget>[
                         new Text("Gender : ",
                           style: TextStyle(
-                              //color: Colors.black,
+                              color: themeChanger.theme.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0
                           ),
                         ),
                         new Text("Age between : ",
                           style: TextStyle(
-                              //color: Colors.black,
+                              color: themeChanger.theme.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0
                           ),
@@ -50,15 +56,15 @@ Widget targetDataWidget(Event event) {
                         children: <Widget>[
                           new Text(event.gender,
                             style: TextStyle(
-                                //color: Colors.black,
+                                color: themeChanger.theme.primaryColor,
                                 //fontWeight: FontWeight.bold,
                                 fontSize: 18.0
                             ),
                           ),
                           new Text(event.minAge.toString()+ " - "+event.maxAge.toString(),
                             style: TextStyle(
-                                //color: Colors.black,
-                                //fontWeight: FontWeight.bold,
+                                color: themeChanger.theme.primaryColor,
+                                fontWeight: FontWeight.bold,
                                 fontSize: 18.0
                             ),
                           ),

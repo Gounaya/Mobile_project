@@ -6,6 +6,9 @@ import 'package:mobileproject/data/models/event.dart';
 import 'package:mobileproject/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobileproject/shared/provider_auth.dart';
+import 'package:mobileproject/theme/theme_changer.dart';
+import 'package:provider/provider.dart';
+
 
 class CreateEvent extends StatefulWidget {
 
@@ -46,8 +49,10 @@ class _CreateEventState extends State<CreateEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
+      backgroundColor: themeChanger.theme.canvasColor,
 
       body: Container(
         child: SingleChildScrollView(
@@ -67,14 +72,20 @@ class _CreateEventState extends State<CreateEvent> {
                   children: <Widget>[
 
                     FormBuilderTextField(
+                      style: TextStyle(
+                        color: themeChanger.theme.primaryColor,
+                      ),
                       attribute: 'text',
                       validators: [FormBuilderValidators.required()],
-                      decoration: textInputDecoration.copyWith(hintText: 'Title', icon: Icon(Icons.title)),
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'Title',
+                          hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                          icon: Icon(Icons.title, color: themeChanger.theme.indicatorColor,),
+                          fillColor: Colors.white
+                      ),
                       onChanged: (val){
-                        print("FormBuilderTextField");
-
-                      setState(() =>
-                        title = val
+                        setState(() =>
+                          title = val
                         );
                       },
                     ),
@@ -82,7 +93,11 @@ class _CreateEventState extends State<CreateEvent> {
                     FormBuilderTextField(
                       attribute: 'text',
                       validators: [FormBuilderValidators.required()],
-                      decoration: textInputDecoration.copyWith(hintText: 'Created By', icon: Icon(Icons.person)),
+                      decoration: textInputDecoration.copyWith(
+                        hintText: 'Created By',
+                        hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                        icon: Icon(Icons.person, color: themeChanger.theme.indicatorColor,),
+                      ),
                       onChanged: (val){
                         setState(() =>
                         createdBy = val
@@ -93,7 +108,11 @@ class _CreateEventState extends State<CreateEvent> {
 
                     FormBuilderTextField(
                       keyboardType: TextInputType.number,
-                      decoration: textInputDecoration.copyWith(hintText: 'Phone number', icon: Icon(Icons.phone)),
+                      decoration: textInputDecoration.copyWith(
+                        hintText: 'Phone number',
+                        hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                        icon: Icon(Icons.phone, color: themeChanger.theme.indicatorColor,),
+                      ),
                       validators: [FormBuilderValidators.required()],
                       //onSaved: (input) => _value = num.tryParse(input),
                       onChanged: (val){
@@ -109,8 +128,12 @@ class _CreateEventState extends State<CreateEvent> {
                       attribute: "date",
                       inputType: InputType.date,
                       validators: [FormBuilderValidators.required()],
-                      format: DateFormat("dd-MM-yyyy"),
-                      decoration: textInputDecoration.copyWith(hintText: 'Day of the Date', icon: Icon(Icons.calendar_today)),
+                      format: DateFormat("dd-MM-yyyy",),
+                      decoration: textInputDecoration.copyWith(
+                        hintText: 'Day of the Date',
+                        hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                        icon: Icon(Icons.calendar_today, color: themeChanger.theme.indicatorColor,),
+                      ),
                       onChanged: (val){
                         setState(() =>
                           dayDate = val
@@ -124,7 +147,11 @@ class _CreateEventState extends State<CreateEvent> {
                       inputType: InputType.time,
                       validators: [FormBuilderValidators.required()],
                       format: DateFormat("hh:mm"),
-                      decoration: textInputDecoration.copyWith(hintText: 'Time of the Date', icon: Icon(Icons.access_time)),
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'Time of the Date',
+                          hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                          icon: Icon(Icons.access_time, color: themeChanger.theme.indicatorColor)
+                      ),
                       onChanged: (val){
                         setState(() =>
                           timeDate = val
@@ -136,7 +163,11 @@ class _CreateEventState extends State<CreateEvent> {
                     FormBuilderTextField(
                       attribute: 'text',
                       validators: [FormBuilderValidators.required()],
-                      decoration: textInputDecoration.copyWith(hintText: 'City', icon: Icon(Icons.location_city)),
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'City',
+                          hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                          icon: Icon(Icons.location_city, color: themeChanger.theme.indicatorColor)
+                      ),
                       onChanged: (val){
                         setState(() =>
                           city = val
@@ -148,7 +179,11 @@ class _CreateEventState extends State<CreateEvent> {
                     FormBuilderTextField(
                       attribute: 'text',
                       validators: [FormBuilderValidators.required()],
-                      decoration: textInputDecoration.copyWith(hintText: 'Address', icon: Icon(Icons.location_on)),
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'Address',
+                          hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                          icon: Icon(Icons.location_on, color: themeChanger.theme.indicatorColor)
+                      ),
                       onChanged: (val){
                         setState(() =>
                           address = val
@@ -161,7 +196,7 @@ class _CreateEventState extends State<CreateEvent> {
                       alignment: Alignment.center,//Alignment(-0.75, 0.0),
                       child: Text("Age ?",
                           style: TextStyle(
-                          color: Colors.grey[600],
+                          color: themeChanger.theme.indicatorColor,
                           fontSize: 16)
                           )
                     ),
@@ -187,31 +222,42 @@ class _CreateEventState extends State<CreateEvent> {
                     Row(children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(left: 40),
-                        child: Text("Age minimum  : "+minAge.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+                        child: Text("Age minimum  : "+minAge.toString(), style: TextStyle(fontWeight: FontWeight.bold,/* color: themeChanger.theme.primaryColor*/),),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 40),
-                        child: Text("Age Maximum : "+maxAge.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+                        child: Text("Age Maximum : "+maxAge.toString(), style: TextStyle(fontWeight: FontWeight.bold, /*color: themeChanger.theme.primaryColor*/),),
                       ),
                     ]),
                     SizedBox(height: 20.0),
 
 
-                    FormBuilderDropdown(
-                      attribute: "gender",
-                      decoration: textInputDecoration.copyWith(hintText: 'Gender', icon: Icon(Icons.accessibility_new)),
-                      initialValue: 'Female',
-                      hint: Text('Select Gender'),
-                      validators: [FormBuilderValidators.required()],
-                      items: ['Male', 'Female', 'Other']
-                          .map((gender) => DropdownMenuItem(
-                          value: gender, child: Text("$gender")))
-                          .toList(),
-                      onChanged: (val){
-                        setState(() =>
-                          gender = val
-                        );
-                      },
+                    new Theme(
+                      data: Theme.of(context).copyWith(
+                        canvasColor: themeChanger.theme.backgroundColor==Colors.black12? Colors.black:Colors.white70
+                      ),
+
+                      child: FormBuilderDropdown(
+                        underline: SizedBox(),
+                        attribute: "gender",
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Gender',
+                            icon: Icon(Icons.accessibility_new, color: themeChanger.theme.indicatorColor),
+                            hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                        ),
+                        initialValue: 'Female',
+                        hint: Text('Select Gender'),
+                        validators: [FormBuilderValidators.required()],
+                        items: ['Male', 'Female', 'Other']
+                            .map((gender) => DropdownMenuItem(
+                            value: gender, child: Text("$gender", style: TextStyle(color: themeChanger.theme.primaryColor),),))
+                            .toList(),
+                        onChanged: (val){
+                          setState(() =>
+                            gender = val
+                          );
+                        },
+                      ),
                     ),
                     SizedBox(height: 10.0),
 
@@ -221,7 +267,11 @@ class _CreateEventState extends State<CreateEvent> {
                       //validators: [FormBuilderValidators.required()],
                       keyboardType: TextInputType.multiline,
                       minLines: 1,
-                      decoration: textInputDecoration.copyWith(hintText: 'Description', icon: Icon(Icons.description)),
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'Description',
+                          hintStyle: TextStyle(color: themeChanger.theme.indicatorColor),
+                          icon: Icon(Icons.description, color: themeChanger.theme.indicatorColor)
+                      ),
                       onChanged: (val){
                         setState(() =>
                           description = val
@@ -236,7 +286,7 @@ class _CreateEventState extends State<CreateEvent> {
                       child: FormBuilderCheckbox(
                         attribute: 'accept_terms',
                         label: Text(
-                            "I have read and agree to the terms and conditions"),
+                            "I have read and agree to the terms and conditions", style: TextStyle(color: themeChanger.theme.indicatorColor),),
                         validators: [
                           FormBuilderValidators.requiredTrue(
                             errorText:
@@ -297,7 +347,7 @@ class _CreateEventState extends State<CreateEvent> {
                       },
                     ),
                     MaterialButton(
-                      child: Text("Reset"),
+                      child: Text("Reset", style: TextStyle(color: themeChanger.theme.primaryColor),),
                       onPressed: () {
                         _fbKey.currentState.reset();
                       },
